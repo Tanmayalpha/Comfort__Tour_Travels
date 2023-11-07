@@ -1,6 +1,6 @@
 /// error : false
 /// message : "Banners Found"
-/// data : [{"image":"https://developmentalphawizz.com/bus_booking/uploads/643ab1871d253.jpg"}]
+/// data : [{"image":"https://comforttourandtravels.com/uploads/643ab1871d253.jpg"}]
 
 class Getbannermodel {
   Getbannermodel({
@@ -48,7 +48,7 @@ Getbannermodel copyWith({  bool? error,
 
 }
 
-/// image : "https://developmentalphawizz.com/bus_booking/uploads/643ab1871d253.jpg"
+/// image : "https://comforttourandtravels.com/uploads/643ab1871d253.jpg"
 
 class Data {
   Data({

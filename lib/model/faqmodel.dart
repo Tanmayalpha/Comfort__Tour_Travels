@@ -1,109 +1,91 @@
-/// error : false
-/// message : "FAQ(s) Retrieved Successfully"
-/// total : "4"
-/// data : [{"id":"5","question":"How do I sign up?","answer":"asdsdf","status":"1"},{"id":"4","question":"How Do Online Recharge.?","answer":"How Do Online Recharge.?","status":"1"},{"id":"3","question":"How Online Recharge Work.?","answer":"How Online Recharge Work","status":"1"},{"id":"2","question":"hello nitin","answer":"What is Online Recharge","status":"1"}]
+/// status : "1"
+/// msg : "Service providers"
+/// setting : [{"id":"2","title":"Why is Comfort Tour & Travels the best website to prepare a Tour application?","description":"<p>The pain itself is important, the sadipscing elitr is established, but the diam nonumy is so envious of the time that with labor and pain there was something great, but the diam volupta. But indeed I will accuse them and just two pains and I will take&"}]
 
 class Faqmodel {
   Faqmodel({
-      bool? error, 
-      String? message, 
-      String? total, 
-      List<Data>? data,}){
-    _error = error;
-    _message = message;
-    _total = total;
-    _data = data;
+      String? status, 
+      String? msg, 
+      List<Setting>? setting,}){
+    _status = status;
+    _msg = msg;
+    _setting = setting;
 }
 
   Faqmodel.fromJson(dynamic json) {
-    _error = json['error'];
-    _message = json['message'];
-    _total = json['total'];
-    if (json['data'] != null) {
-      _data = [];
-      json['data'].forEach((v) {
-        _data?.add(Data.fromJson(v));
+    _status = json['status'];
+    _msg = json['msg'];
+    if (json['setting'] != null) {
+      _setting = [];
+      json['setting'].forEach((v) {
+        _setting?.add(Setting.fromJson(v));
       });
     }
   }
-  bool? _error;
-  String? _message;
-  String? _total;
-  List<Data>? _data;
-Faqmodel copyWith({  bool? error,
-  String? message,
-  String? total,
-  List<Data>? data,
-}) => Faqmodel(  error: error ?? _error,
-  message: message ?? _message,
-  total: total ?? _total,
-  data: data ?? _data,
+  String? _status;
+  String? _msg;
+  List<Setting>? _setting;
+Faqmodel copyWith({  String? status,
+  String? msg,
+  List<Setting>? setting,
+}) => Faqmodel(  status: status ?? _status,
+  msg: msg ?? _msg,
+  setting: setting ?? _setting,
 );
-  bool? get error => _error;
-  String? get message => _message;
-  String? get total => _total;
-  List<Data>? get data => _data;
+  String? get status => _status;
+  String? get msg => _msg;
+  List<Setting>? get setting => _setting;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['error'] = _error;
-    map['message'] = _message;
-    map['total'] = _total;
-    if (_data != null) {
-      map['data'] = _data?.map((v) => v.toJson()).toList();
+    map['status'] = _status;
+    map['msg'] = _msg;
+    if (_setting != null) {
+      map['setting'] = _setting?.map((v) => v.toJson()).toList();
     }
     return map;
   }
 
 }
 
-/// id : "5"
-/// question : "How do I sign up?"
-/// answer : "asdsdf"
-/// status : "1"
+/// id : "2"
+/// title : "Why is Comfort Tour & Travels the best website to prepare a Tour application?"
+/// description : "<p>The pain itself is important, the sadipscing elitr is established, but the diam nonumy is so envious of the time that with labor and pain there was something great, but the diam volupta. But indeed I will accuse them and just two pains and I will take&"
 
-class Data {
-  Data({
+class Setting {
+  Setting({
       String? id, 
-      String? question, 
-      String? answer, 
-      String? status,}){
+      String? title, 
+      String? description,}){
     _id = id;
-    _question = question;
-    _answer = answer;
-    _status = status;
+    _title = title;
+    _description = description;
 }
 
-  Data.fromJson(dynamic json) {
+  Setting.fromJson(dynamic json) {
     _id = json['id'];
-    _question = json['question'];
-    _answer = json['answer'];
-    _status = json['status'];
+    _title = json['title'];
+    _description = json['description'];
   }
   String? _id;
-  String? _question;
-  String? _answer;
-  String? _status;
-Data copyWith({  String? id,
-  String? question,
-  String? answer,
-  String? status,
-}) => Data(  id: id ?? _id,
-  question: question ?? _question,
-  answer: answer ?? _answer,
-  status: status ?? _status,
+  String? _title;
+  String? _description;
+Setting copyWith({  String? id,
+  String? title,
+  String? description,
+}) => Setting(  id: id ?? _id,
+  title: title ?? _title,
+  description: description ?? _description,
 );
   String? get id => _id;
-  String? get question => _question;
-  String? get answer => _answer;
-  String? get status => _status;
+  String? get title => _title;
+  String? get description => _description;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;
-    map['question'] = _question;
-    map['answer'] = _answer;
-    map['status'] = _status;
+    map['title'] = _title;
+    map['description'] = _description;
     return map;
   }
 

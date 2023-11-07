@@ -28,7 +28,7 @@ class _MyWalletState extends State<MyWallet> {
      var headers = {
        'Cookie': 'ci_session=8c2275d8af8aa49a38366843cf03ea05190bd53b'
      };
-     var request = http.MultipartRequest('POST', Uri.parse('https://developmentalphawizz.com/bus_booking/api/get_wallet_transaction'));
+     var request = http.MultipartRequest('POST', Uri.parse('https://comforttourandtravels.com/api/get_wallet_transaction'));
      request.fields.addAll({
        'user_id': id.toString()
      });

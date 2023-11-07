@@ -1,7 +1,7 @@
 /// error : false
 /// message : "Notification Retrieved Successfully"
 /// total : "1"
-/// data : [{"id":"2","title":"test","message":"test","type":"default","type_id":"0","image":"https://developmentalphawizz.com/bus_booking/uploads/media/2022/Toss_KA_boss_Logo.png","date_sent":"2022-07-18 12:52:17"}]
+/// data : [{"id":"2","title":"test","message":"test","type":"default","type_id":"0","image":"https://comforttourandtravels.com/uploads/media/2022/Toss_KA_boss_Logo.png","date_sent":"2022-07-18 12:52:17"}]
 
 class Notificationmodel {
   Notificationmodel({
@@ -62,7 +62,7 @@ Notificationmodel copyWith({  bool? error,
 /// message : "test"
 /// type : "default"
 /// type_id : "0"
-/// image : "https://developmentalphawizz.com/bus_booking/uploads/media/2022/Toss_KA_boss_Logo.png"
+/// image : "https://comforttourandtravels.com/uploads/media/2022/Toss_KA_boss_Logo.png"
 /// date_sent : "2022-07-18 12:52:17"
 
 class Data {

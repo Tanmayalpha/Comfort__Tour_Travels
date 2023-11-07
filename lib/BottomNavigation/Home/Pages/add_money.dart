@@ -35,7 +35,7 @@ class _AddMoneyUIState extends State<AddMoneyUI> {
     var headers = {
       'Cookie': 'ci_session=ec52faaf4141b7aee9f262fa0bdfee398ae84f13'
     };
-    var request = http.MultipartRequest('POST', Uri.parse('https://developmentalphawizz.com/bus_booking/api/add_money_wallet'));
+    var request = http.MultipartRequest('POST', Uri.parse('https://comforttourandtravels.com/api/add_money_wallet'));
     request.fields.addAll({
       'user_id': id.toString(),
       'amount': _amountController.text,
@@ -76,7 +76,7 @@ class _AddMoneyUIState extends State<AddMoneyUI> {
     var headers = {
       'Cookie': 'ci_session=8c2275d8af8aa49a38366843cf03ea05190bd53b'
     };
-    var request = http.MultipartRequest('POST', Uri.parse('https://developmentalphawizz.com/bus_booking/api/get_wallet_transaction'));
+    var request = http.MultipartRequest('POST', Uri.parse('https://comforttourandtravels.com/api/get_wallet_transaction'));
     request.fields.addAll({
       'user_id': id.toString()
     });

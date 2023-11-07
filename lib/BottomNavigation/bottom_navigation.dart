@@ -137,53 +137,83 @@ class _MyHomePageState extends State<BottomBar>
   }
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: TabBarView(
-          children: <Widget>[
-                  HomePage(),
-            MyBookingsPage(),
-                  MyProfilePage(),
-                  // HomePage(),
-          ],
-          // If you want to disable swiping in tab the use below code
-          physics: NeverScrollableScrollPhysics(),
-          controller: _tabController,
-        ),
-        bottomNavigationBar: TabBar(
-          labelColor: primary,
-          unselectedLabelColor: Colors.black54,
-          labelStyle: TextStyle(fontSize: 10.0),
-          indicator: UnderlineTabIndicator(
-            borderSide: BorderSide(color: Colors.black54, width: 0.0),
-            // insets: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 40.0),
+    return WillPopScope(
+      onWillPop: () async {
+        // Display a confirmation dialog when the back button is pressed.
+        bool exit = await showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Exit App'),
+              content: Text('Are you sure you want to exit the app?'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(false); // Cancel exit
+                  },
+                  child: Text('No'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(true); // Confirm exit
+                  },
+                  child: Text('Yes'),
+                ),
+              ],
+            );
+          },
+        );
+
+        return exit ?? false; // Exit if the user confirmed (true) or continue if canceled (false).
+      },
+      child: SafeArea(
+        child: Scaffold(
+          body: TabBarView(
+            children: <Widget>[
+                    HomePage(),
+              MyBookingsPage(),
+                    MyProfilePage(),
+                    // HomePage(),
+            ],
+            // If you want to disable swiping in tab the use below code
+            physics: NeverScrollableScrollPhysics(),
+            controller: _tabController,
           ),
-          //For Indicator Show and Customization
-          indicatorColor: primary,
-          tabs: <Widget>[
-            Tab(
-              icon: ImageIcon(
-                   AssetImage('assets/icons/footer menu/ic_home.png',),
-               ),
-              text: "Home",
-
+          bottomNavigationBar: TabBar(
+            labelColor: primary,
+            unselectedLabelColor: Colors.black54,
+            labelStyle: TextStyle(fontSize: 10.0),
+            indicator: UnderlineTabIndicator(
+              borderSide: BorderSide(color: Colors.black54, width: 0.0),
+              // insets: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 40.0),
             ),
-
-            Tab(
-              icon: ImageIcon(
-                AssetImage('assets/icons/ic_bus.png'),
+            //For Indicator Show and Customization
+            indicatorColor: primary,
+            tabs: <Widget>[
+              Tab(
+                icon: ImageIcon(
+                     AssetImage('assets/icons/footer menu/ic_home.png',),
+                 ),
+                text: "Home",
 
               ),
-              text: "My Booking",
+
+              Tab(
+                icon: ImageIcon(
+                  AssetImage('assets/icons/ic_bus.png'),
+
+                ),
+                text: "My Booking",
+              ),
+              Tab(
+                icon: ImageIcon(
+                  AssetImage('assets/icons/footer menu/ic_account.png'),
             ),
-            Tab(
-              icon: ImageIcon(
-                AssetImage('assets/icons/footer menu/ic_account.png'),
+                text: "Account",
+              ),
+            ],
+            controller: _tabController,
           ),
-              text: "Account",
-            ),
-          ],
-          controller: _tabController,
         ),
       ),
     );

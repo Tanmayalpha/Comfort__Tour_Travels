@@ -1,6 +1,6 @@
 /// error : false
 /// message : "Profile Update Succesfully"
-/// data : [{"image":"https://developmentalphawizz.com/bus_booking/assets/no-image.png","image_sm":"https://developmentalphawizz.com/bus_booking/assets/no-image.png","bank_pass":"https://developmentalphawizz.com/bus_booking/assets/no-image.png"}]
+/// data : [{"image":"https://comforttourandtravels.com/assets/no-image.png","image_sm":"https://comforttourandtravels.com/assets/no-image.png","bank_pass":"https://comforttourandtravels.com/assets/no-image.png"}]
 
 class Updateprofilemodel {
   Updateprofilemodel({
@@ -48,9 +48,9 @@ Updateprofilemodel copyWith({  bool? error,
 
 }
 
-/// image : "https://developmentalphawizz.com/bus_booking/assets/no-image.png"
-/// image_sm : "https://developmentalphawizz.com/bus_booking/assets/no-image.png"
-/// bank_pass : "https://developmentalphawizz.com/bus_booking/assets/no-image.png"
+/// image : "https://comforttourandtravels.com/assets/no-image.png"
+/// image_sm : "https://comforttourandtravels.com/assets/no-image.png"
+/// bank_pass : "https://comforttourandtravels.com/assets/no-image.png"
 
 class Data {
   Data({

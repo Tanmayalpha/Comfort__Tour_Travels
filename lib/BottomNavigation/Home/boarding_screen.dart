@@ -225,84 +225,88 @@ class _BoardingDroppingScreenState extends State<BoardingDroppingScreen>
   }
 
   Widget _buildBoardingTab() {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Text(
-          'Select your boarding point',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
+    return SingleChildScrollView(
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            'Select your boarding point',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-      ),
-      Column(
-        children: _boardingPoints.map((option) {
-          return RadioListTile(
-            title: Text(option.title ?? ''),
-            value: option,
-            groupValue: _selectedBoardingOption,
-            onChanged: (value) {
-              setState(() {
-                _selectedBoardingOption = value;
-                _tabController.animateTo(1);
-              });
-            },
-          );
-        }).toList(),
-      ),
-    ]);
+        Column(
+          children: _boardingPoints.map((option) {
+            return RadioListTile(
+              title: Text(option.title ?? ''),
+              value: option,
+              groupValue: _selectedBoardingOption,
+              onChanged: (value) {
+                setState(() {
+                  _selectedBoardingOption = value;
+                  _tabController.animateTo(1);
+                });
+              },
+            );
+          }).toList(),
+        ),
+      ]),
+    );
   }
 
   Widget _buildDroppingTab() {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Text(
-          'Select your boarding point',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
+    return SingleChildScrollView(
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            'Select your boarding point',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-      ),
-      Column(
-        children: _droppingPoints.map((option) {
-          return RadioListTile(
-            title: Text(option.title ?? ''),
-            value: option,
-            groupValue: _selectedDroppingOption,
-            onChanged: (value) {
-              setState(() {
-                if (_selectedBoardingOption == null) {
-                  Fluttertoast.showToast(msg: 'Pick first Boarding Point ');
-                } else {
-                  _selectedDroppingOption = value;
+        Column(
+          children: _droppingPoints.map((option) {
+            return RadioListTile(
+              title: Text(option.title ?? ''),
+              value: option,
+              groupValue: _selectedDroppingOption,
+              onChanged: (value) {
+                setState(() {
+                  if (_selectedBoardingOption == null) {
+                    Fluttertoast.showToast(msg: 'Pick first Boarding Point ');
+                  } else {
+                    _selectedDroppingOption = value;
 
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PasssengerInformation(
-                          amount: widget.amount,
-                          seatNoList: widget.seatNoList,
-                          travelsName: widget.travelsName,
-                          date: widget.date,
-                          busId: widget.busId,
-                          boarding: _selectedBoardingOption.title.toString(),
-                          dropping: _selectedDroppingOption.title.toString(),
-                          cityFromAndTo: widget.fromAndToCity,
-                          timeFrom: widget.fromTime,
-                          timeTo: widget.toTime,
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PasssengerInformation(
+                            amount: widget.amount,
+                            seatNoList: widget.seatNoList,
+                            travelsName: widget.travelsName,
+                            date: widget.date,
+                            busId: widget.busId,
+                            boarding: _selectedBoardingOption.title.toString(),
+                            dropping: _selectedDroppingOption.title.toString(),
+                            cityFromAndTo: widget.fromAndToCity,
+                            timeFrom: widget.fromTime,
+                            timeTo: widget.toTime,
 
-                        ),
-                      ));
-                }
-              });
-            },
-          );
-        }).toList(),
-      ),
-    ]);
+                          ),
+                        ));
+                  }
+                });
+              },
+            );
+          }).toList(),
+        ),
+      ]),
+    );
   }
 
   Future<void> getPoints() async {
@@ -327,6 +331,8 @@ class _BoardingDroppingScreenState extends State<BoardingDroppingScreen>
       setState(() {
         _droppingPoints = finalResult.data?.dropPoints ?? [];
         _boardingPoints = finalResult.data?.pickupPoints ?? [];
+
+
         isLoading = false;
       });
     } else {

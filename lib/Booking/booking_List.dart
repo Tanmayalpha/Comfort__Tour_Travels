@@ -80,7 +80,7 @@ class _BookingListState extends State<BookingList> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => BusBookingPage(id: item.id.toString(),date:  widget.date,type: item.type.toString(),)));
+                            builder: (context) => BusBookingPage(id: item.id.toString(),date:  widget.date,type: item.type.toString(),seatPrice: item.amount,)));
                   },
                   child: Card(
                     child: Padding(

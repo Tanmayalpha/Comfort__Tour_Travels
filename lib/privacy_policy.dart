@@ -56,9 +56,20 @@ class _PrivacyState extends State<Privacy> {
           backgroundColor: primary,
           title: Text("Privacy Policy"),
         ),
-        body: getPrivacyPoliceModel == null || getPrivacyPoliceModel!.setting! == '' ?Center(child: CircularProgressIndicator()): Html(
-            data:"${getPrivacyPoliceModel!.setting!.discription}"
-        )
+        body:
+        getPrivacyPoliceModel == null || getPrivacyPoliceModel!.setting! == '' ?
+        Center(child: CircularProgressIndicator()):
+            Column(
+              children: [
+                Html(
+                    data:"${getPrivacyPoliceModel!.setting!.data}"
+                ),
+                Html(
+                    data:"${getPrivacyPoliceModel!.setting!.discription}"
+                )
+              ],
+            )
+
     );
   }
 }
