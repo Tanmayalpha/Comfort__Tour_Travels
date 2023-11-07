@@ -129,4 +129,10 @@ class Seat {
     "id": id,
     "is_selected": isSelected,
   };
+
+  @override
+  String toString() {
+    return 'Seat(id: $id, isSelected: $isSelected, isBooked: $isBooked)';
+  }
+
 }

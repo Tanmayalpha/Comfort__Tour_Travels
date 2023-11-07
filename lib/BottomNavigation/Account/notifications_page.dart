@@ -19,34 +19,25 @@ class Notification {
   String? title;
   bool read;
   String? time;
-
   Notification(this.title, this.read, this.time);
 }
 
 class _NotificationsPageState extends State<NotificationsPage> {
 
   Notificationmodel? getnotification;
-
   getNotification() async {
     var headers = {
       'Cookie': 'ci_session=d178684d099d2928f6636c6820fe7b0e5696e468'
     };
     var request = http.Request('POST', Uri.parse('${ApiService.getNotification}'));
-
     request.headers.addAll(headers);
-
     http.StreamedResponse response = await request.send();
-
-
     if (response.statusCode == 200) {
-
      var finalresponse = await  response.stream.bytesToString();
      final jsonrespomse = Notificationmodel.fromJson(jsonDecode(finalresponse));
-
      setState(() {
        getnotification = jsonrespomse;
      });
-
     }
     else {
     print(response.reasonPhrase);
@@ -58,7 +49,6 @@ class _NotificationsPageState extends State<NotificationsPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
     Future.delayed(Duration(milliseconds: 200),(){
       getNotification();
      }
@@ -68,8 +58,6 @@ class _NotificationsPageState extends State<NotificationsPage> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(

@@ -8,6 +8,7 @@ import 'package:quick_pay/Theme/colors.dart';
 import 'package:http/http.dart'as http;
 
 import '../../helper/apiservices.dart';
+import '../../model/Terms_condition_model.dart';
 
 class TncPage extends StatefulWidget {
 
@@ -16,29 +17,20 @@ class TncPage extends StatefulWidget {
 }
 
 class _TncPageState extends State<TncPage> {
-  var trmscondition;
-
-  getSettingApi() async {
+  TermsConditionModel? termsConditionModel;
+  getTMC() async {
     var headers = {
-      'Cookie': 'ci_session=eb651cdce0850614d296b81363913b2ca08fe641'
+      'Cookie': 'ci_session=b1b0eba7591b38a7c05bf68eb6d0af9154aa441e'
     };
-    var request = http.Request('POST', Uri.parse('${ApiService.getSettings}'));
+    var request = http.Request('GET', Uri.parse('${ApiService.getTermsCondition}'));
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
-      print("Privacy PolicyI hereeeeeeeeeeeeeeeeee${trmscondition}");
       final result =  await response.stream.bytesToString();
-      final jsonResponse = json.decode(result);
-      print("Thiiiiiiiiiiiiiiiiisssssssss${jsonResponse}");
-
+      final finalResult = TermsConditionModel.fromJson(jsonDecode(result));
       setState(() {
-        trmscondition = jsonResponse['data']['privacy_policy'][0];
+        termsConditionModel = finalResult;
       });
-      // var FinalResult = GetSettingModel.fromJson(jsonDecode(result));
-      // print("thi osoks0  ============>${FinalResult}");
-      // setState(() {
-      //   settingModel = FinalResult;
-      // });
     }
     else {
       print(response.reasonPhrase);
@@ -50,7 +42,7 @@ class _TncPageState extends State<TncPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getSettingApi();
+    getTMC();
   }
 
   @override
@@ -61,8 +53,17 @@ class _TncPageState extends State<TncPage> {
           backgroundColor: primary,
           title: Text("Terms & Condition"),
         ),
-        body: trmscondition  == null ? Center(child: Text('Data not available')) :Html(
-            data:"${trmscondition}"
+        body: termsConditionModel == null || termsConditionModel!.setting! == '' ?
+        Center(child: CircularProgressIndicator()):
+        Column(
+          children: [
+            Html(
+                data:"${termsConditionModel!.setting!.data}"
+            ),
+            Html(
+                data:"${termsConditionModel!.setting!.discription}"
+            )
+          ],
         )
     );
   }

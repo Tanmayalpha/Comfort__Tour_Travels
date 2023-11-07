@@ -237,8 +237,8 @@ class _PasssengerInformationState extends State<PasssengerInformation> {
       bottomSheet: Container(
         padding: EdgeInsets.only(bottom: 10, left: 10, right: 10),
         height: 50,
-        child: ElevatedButton(
-          onPressed: () {
+        child:   InkWell(
+          onTap: () {
             // onPressedBook();
             UpiPayment upiPayment = new UpiPayment(widget.amount ?? " ", context, (value) {
               // ApplicationMeta? app;
@@ -256,12 +256,50 @@ class _PasssengerInformationState extends State<PasssengerInformation> {
             );
             upiPayment.initPayment();
           },
-          child: Center(
-            child: Text(
-              'Book Tickets',
-              style: TextStyle(fontSize: 14),
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            height: 45,
+            decoration: BoxDecoration(
+                color: primary,
+                borderRadius: BorderRadius.circular(10)
             ),
-          ))),
+            child: Center(
+              child: Text(
+                'Book Tickets',
+                style: TextStyle(fontSize: 14,color: white),
+              ),
+            ) ,
+          ),
+        )
+
+
+        // ElevatedButton(
+        //   onPressed: () {
+        //     // onPressedBook();
+        //     UpiPayment upiPayment = new UpiPayment(widget.amount ?? " ", context, (value) {
+        //       // ApplicationMeta? app;
+        //       // var upiSucc = upiPayment.onTap(app!.upiApplication as ApplicationMeta);
+        //       print("fianl result here ${value}");
+        //       if(value.status==UpiTransactionStatus.success){
+        //         print("workingggg");
+        //         bookTicketApi(transtionId ?? "");
+        //         // Navigator.pop(context);
+        //         // placeOrder('');
+        //       } else {
+        //         Fluttertoast.showToast(msg: "Payment Failed");
+        //       }
+        //     },
+        //     );
+        //     upiPayment.initPayment();
+        //   },
+        //   child: Center(
+        //     child: Text(
+        //       'Book Tickets',
+        //       style: TextStyle(fontSize: 14),
+        //     ),
+        //   ))
+
+      ),
       appBar: AppBar(
         backgroundColor: primary,
         leading: InkWell(

@@ -74,30 +74,56 @@ class _MyProfilePageState extends State<MyProfilePage> {
   }
 
 
-  Future<DeleteAccountModel?> deleteAccount() async {
+
+
+  deleteAccountApi() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String? id  =  preferences.getString('userId');
     var headers = {
-      'Cookie': 'ci_session=7ff77755bd5ddabba34d18d1a5a3b7fbca686dfa'
+      'Cookie': 'ci_session=efa0c17ecb26743136a9725f83e4cada80c31f70'
     };
-    var header = headers;
-    var request = http.MultipartRequest('POST', Uri.parse('https://comforttourandtravels.com/api/delete_account'));
+    var request = http.MultipartRequest('POST', Uri.parse('${ApiService.getDeleteApi}'));
     request.fields.addAll({
       'user_id': id.toString()
     });
-    print("User id in delet account ${request.fields}");
-    request.headers.addAll(header);
+    print('__________${request.fields}_________');
+    request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
-      final str = await response.stream.bytesToString();
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LoginUI()));
-      var data  = DeleteAccountModel.fromJson(json.decode(str));
-      Fluttertoast.showToast(msg: 'Account Delete Success');
-      return DeleteAccountModel.fromJson(json.decode(str));
-    } else {
-      return null;
+      var result =  await response.stream.bytesToString();
+      var finalResult =  jsonDecode(result);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LoginPage()));
+      Fluttertoast.showToast(msg: '${finalResult['message']}');
     }
+    else {
+    print(response.reasonPhrase);
+    }
+
   }
+  // Future<DeleteAccountModel?> deleteAccount() async {
+  //   SharedPreferences preferences = await SharedPreferences.getInstance();
+  //   String? id  =  preferences.getString('userId');
+  //   var headers = {
+  //     'Cookie': 'ci_session=7ff77755bd5ddabba34d18d1a5a3b7fbca686dfa'
+  //   };
+  //   var header = headers;
+  //   var request = http.MultipartRequest('POST', Uri.parse('${ApiService.getDeleteApi}'));
+  //   request.fields.addAll({
+  //     'user_id': id.toString()
+  //   });
+  //   print("User id in delet account ${request.fields}");
+  //   request.headers.addAll(header);
+  //   http.StreamedResponse response = await request.send();
+  //   if (response.statusCode == 200) {
+  //     final str = await response.stream.bytesToString();
+  //     var data  = DeleteAccountModel.fromJson(json.decode(str));
+  //     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LoginUI()));
+  //     Fluttertoast.showToast(msg: 'Account Delete Success');
+  //     return DeleteAccountModel.fromJson(json.decode(str));
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   dialogAnimate(BuildContext context, Widget dialge) {
     return showGeneralDialog(
@@ -130,7 +156,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0))),
                   content: Text(
-                      "Are You Sure You Wan't To Delete This Account",
+                      "Are you sure you wan't to delete this account",
                       style: TextStyle(color: Colors.black)
                   ),
                   actions: <Widget>[
@@ -148,7 +174,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)
                         ),
                         onPressed: () {
-                          deleteAccount();
+                          deleteAccountApi();
                           // SettingProvider settingProvider =
                           // Provider.of<SettingProvider>(context, listen: false);
                           // settingProvider.clearUserSession(context);

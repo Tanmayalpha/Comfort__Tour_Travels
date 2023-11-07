@@ -49,7 +49,7 @@ class _EditeProfileState extends State<EditeProfile> {
     var headers = {
       'Cookie': 'ci_session=7ff77755bd5ddabba34d18d1a5a3b7fbca686dfa'
     };
-    var request = http.MultipartRequest('POST', Uri.parse('https://developmentalphawizz.com/bus_booking/api/get_profile'));
+    var request = http.MultipartRequest('POST', Uri.parse('https://comforttourandtravels.com/api/get_profile'));
     request.fields.addAll({
       'user_id': id.toString()
     });

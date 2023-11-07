@@ -20,7 +20,7 @@ class _TransactionPageState extends State<TransactionPage> {
     var headers = {
       'Cookie': 'ci_session=08628db3954ee6abd539f30067f0d8ebc43c8a38'
     };
-    var request = http.Request('POST', Uri.parse('https://developmentalphawizz.com/bus_booking/api/get_transactions'));
+    var request = http.Request('POST', Uri.parse('https://comforttourandtravels.com/api/get_transactions'));
 
     request.headers.addAll(headers);
 

@@ -1,6 +1,6 @@
 /// error : false
 /// message : "User Found"
-/// data : {"username":"surendra","email":"ffff@gmail.com","mobile":"9632580741","address":"india ","profile_pic":"https://developmentalphawizz.com/bus_booking/uploads/profile_pics/"}
+/// data : {"username":"surendra","email":"ffff@gmail.com","mobile":"9632580741","address":"india ","profile_pic":"https://comforttourandtravels.com/uploads/profile_pics/"}
 
 class Userprofile {
   Userprofile({
@@ -47,7 +47,7 @@ Userprofile copyWith({  bool? error,
 /// email : "ffff@gmail.com"
 /// mobile : "9632580741"
 /// address : "india "
-/// profile_pic : "https://developmentalphawizz.com/bus_booking/uploads/profile_pics/"
+/// profile_pic : "https://comforttourandtravels.com/uploads/profile_pics/"
 
 class Data {
   Data({

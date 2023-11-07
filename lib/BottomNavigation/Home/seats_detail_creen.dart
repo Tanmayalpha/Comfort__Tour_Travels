@@ -13,11 +13,12 @@ import 'package:quick_pay/model/bus_model/vehicle_data_response.dart';
 
 class BusBookingPage extends StatefulWidget {
 
-  BusBookingPage({Key? key, required this.id, this.date, this.type});
+  BusBookingPage({Key? key, required this.id, this.date, this.type,this.seatPrice});
 
   String id ;
   String? date;
   String? type;
+  String? seatPrice;
 
   @override
   _BusBookingPageState createState() => _BusBookingPageState();
@@ -128,41 +129,88 @@ class _BusBookingPageState extends State<BusBookingPage> {
             SizedBox(
               height: 10,
             ),
-            ElevatedButton(
-                onPressed: () {
-                  if(widget.type=='ertiga' || widget.type=='eeco'){
-                    seatNoList.clear();
-                    for (int i = 0; i < vehicleSeats.length; i++){
-                      if(vehicleSeats[i].isBooked ?? false){
-                        seatNoList.add(vehicleSeats[i].id.toString());
-                      }
-                    }
 
-
-                  }else {
-                    seatNoList.clear();
-                    for (int i = 0; i < seats.length; i++) {
-                      for (int j = 0; j < seats[i].length; j++) {
-                        if (seats[i][j].isBooked ?? false) {
-                          seatNoList.add(seats[i][j].id.toString());
-                          print('${j}__j__');
-                        }
-                      }
+            InkWell(
+              onTap: () {
+                if(widget.type=='ertiga' || widget.type=='eeco'){
+                  seatNoList.clear();
+                  for (int i = 0; i < vehicleSeats.length; i++){
+                    if(vehicleSeats[i].isBooked ?? false){
+                      seatNoList.add(vehicleSeats[i].id.toString());
                     }
                   }
 
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => BoardingDroppingScreen(
+
+                }else {
+                  seatNoList.clear();
+                  for (int i = 0; i < seats.length; i++) {
+                    for (int j = 0; j < seats[i].length; j++) {
+                      if (seats[i][j].isBooked ?? false) {
+                        seatNoList.add(seats[i][j].id.toString());
+                        print('${j}__j__');
+                      }
+                    }
+                  }
+                }
+
+                Navigator.push(context, MaterialPageRoute(builder: (context) => BoardingDroppingScreen(
                     busId: widget.type == 'bus' ? busDetailData?.id.toString() : vehicleData?.id.toString(), date: widget.date,
                     amount: amount.toString(), seatNoList: seatNoList,travelsName: widget.type == 'bus' ?  busDetailData?.name.toString(): vehicleData?.name.toString() ,
                     fromTime: widget.type == 'bus' ? busDetailData?.startTime : vehicleData?.startTime.toString(),
                     toTime: widget.type == 'bus' ? busDetailData?.endTime :vehicleData?.endTime.toString(),
                     fromAndToCity: widget.type == 'bus' ? busDetailData?.fromAndToCity.toString() : vehicleData?.jsonData.toString()
-                  ),));
-                },
-                child: Text(
-                  'SELECT BOARDING & DROPPING POINT',
-                  style: TextStyle(fontSize: 14),
-                ))
+                ),));
+              },
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                height: 45,
+                decoration: BoxDecoration(
+                  color: primary,
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                child: Center(
+                  child: Text(
+                    'SELECT BOARDING & DROPPING POINT',
+                    style: TextStyle(fontSize: 14,color: white),
+                  ),
+                ) ,
+              ),
+            ),
+            // ElevatedButton(
+            //     onPressed: () {
+            //       if(widget.type=='ertiga' || widget.type=='eeco'){
+            //         seatNoList.clear();
+            //         for (int i = 0; i < vehicleSeats.length; i++){
+            //           if(vehicleSeats[i].isBooked ?? false){
+            //             seatNoList.add(vehicleSeats[i].id.toString());
+            //           }
+            //         }
+            //
+            //
+            //       }else {
+            //         seatNoList.clear();
+            //         for (int i = 0; i < seats.length; i++) {
+            //           for (int j = 0; j < seats[i].length; j++) {
+            //             if (seats[i][j].isBooked ?? false) {
+            //               seatNoList.add(seats[i][j].id.toString());
+            //               print('${j}__j__');
+            //             }
+            //           }
+            //         }
+            //       }
+            //
+            //       Navigator.push(context, MaterialPageRoute(builder: (context) => BoardingDroppingScreen(
+            //         busId: widget.type == 'bus' ? busDetailData?.id.toString() : vehicleData?.id.toString(), date: widget.date,
+            //         amount: amount.toString(), seatNoList: seatNoList,travelsName: widget.type == 'bus' ?  busDetailData?.name.toString(): vehicleData?.name.toString() ,
+            //         fromTime: widget.type == 'bus' ? busDetailData?.startTime : vehicleData?.startTime.toString(),
+            //         toTime: widget.type == 'bus' ? busDetailData?.endTime :vehicleData?.endTime.toString(),
+            //         fromAndToCity: widget.type == 'bus' ? busDetailData?.fromAndToCity.toString() : vehicleData?.jsonData.toString()
+            //       ),));
+            //     },
+            //     child: Text(
+            //       'SELECT BOARDING & DROPPING POINT',
+            //       style: TextStyle(fontSize: 14),
+            //     ))
           ],
         ),
       ),
@@ -174,9 +222,11 @@ class _BusBookingPageState extends State<BusBookingPage> {
             Container(
               padding: EdgeInsets.only(left: 20),
               color: Colors.white,
-              height: 100,
+              height: 110,
               width: MediaQuery.of(context).size.width,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+
                 children: [
                   SizedBox(height: 10,),
               Row(children: [
@@ -186,6 +236,8 @@ class _BusBookingPageState extends State<BusBookingPage> {
                   Text('Pickup Point :', style: TextStyle(fontWeight: FontWeight.bold),),
                   SizedBox(height: 10,),
                   Text('Dropping Point :', style: TextStyle(fontWeight: FontWeight.bold),),
+                    SizedBox(height: 10,),
+                  Text('Amount :', style: TextStyle(fontWeight: FontWeight.bold),),
                 ],),
                 SizedBox(width: 5,),
                 Column(
@@ -198,17 +250,18 @@ class _BusBookingPageState extends State<BusBookingPage> {
                         child: Row(children: _boardingPoints.map((e) => Text('${e.title}, ' ?? '')).toList())),
                   ),
                     SizedBox(height: 10,),
-
                     SizedBox(
                       width: MediaQuery.of(context).size.width/1.8,
 
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(children: _droppingPoints.map((e) => Text('${e.title}, ' ?? '')).toList())),
-                    )
+                    ),
+                    SizedBox(height: 10,),
+                    Text("₹ ${widget.seatPrice}", style: TextStyle(color: Colors.black,),),
                 ],)
               ],),
-                  SizedBox(height: 10,),
+                  //SizedBox(height: 10,),
               Row(
                 children: [
                 Text(widget.type == 'bus' ? busDetailData?.startTime ?? '' : vehicleData?.startTime ?? '', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
@@ -219,7 +272,9 @@ class _BusBookingPageState extends State<BusBookingPage> {
                   SizedBox(width: 20,),
                   Text(widget.date.toString().substring(0,10) ?? '', style: TextStyle(color: Colors.black,),),
 
+
               ],),
+
 
             ],),),
             SizedBox(
@@ -272,7 +327,7 @@ class _BusBookingPageState extends State<BusBookingPage> {
     }
 
     return Container(
-      padding: EdgeInsets.only(left: 15),
+      padding: EdgeInsets.only(left: 0),
       width: 200,
       color: Colors.white,
       child: Column(
@@ -282,10 +337,13 @@ class _BusBookingPageState extends State<BusBookingPage> {
           SizedBox(
             height: 10,
           ),
-          Image.asset(
-            'assets/imgs/img1.png',
-            height: 40,
-            width: 40,
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: Image.asset(
+              'assets/imgs/img1.png',
+              height: 30,
+              width: 30,
+            ),
           ),
           SizedBox(
               width: double.maxFinite,
@@ -299,7 +357,7 @@ class _BusBookingPageState extends State<BusBookingPage> {
             itemCount: seats.length-1,
             itemBuilder: (context, index) {
               return Padding(
-                padding: const EdgeInsets.only(bottom: 10,left: 10, ),
+                padding: const EdgeInsets.only(bottom: 10,left: 5, ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
@@ -322,32 +380,31 @@ class _BusBookingPageState extends State<BusBookingPage> {
 
                           }
                         },
-                        child: Row(
+                        child:
+                        Row(
+
                         children: [
                           seats[index][k].isSelected ?? false
-                        ? Image.asset('assets/imgs/chair3.png',height: 30, width: 30, scale: 5)
+                        ? Image.asset('assets/imgs/chair3.png',height: 25, width: 25, scale: 5)
                             : seats[index][k].isBooked ?? false
-                              ? Image.asset('assets/imgs/chair2.png',height: 30, width: 30, scale: 5)
-                              : Image.asset('assets/imgs/chair1.png',height: 30, width: 30, scale: 5) ,
-                  k%2 == 0 ? SizedBox(width: 5,) : SizedBox(width: 20,)
-                ],),
-                      );
+                              ? Image.asset('assets/imgs/chair2.png',height: 25, width: 25, scale: 5)
+                              : Image.asset('assets/imgs/chair1.png',height: 25, width: 25, scale: 5) ,
+                                 k==0 ? SizedBox(width: 5,) : k==2 || k==3 ||k==4  ? SizedBox(width: 5,) : SizedBox(width: 20,)
+                        ],),
+                        );
                     } )),
               );
             },
           ),
           Padding(
-            padding: EdgeInsets.only(right: 12, left: 0),
+            padding: EdgeInsets.only(right: 14, left: 6),
             child: SizedBox(
                 width: 200,
                 height: 30,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: List.generate(lastSeats.first.length, (index) {
-
                     return InkWell(onTap: (){
-
-
                       if (lastSeats.first[index].isSelected ?? false) {
                       } else {
                         setState(() {
@@ -366,10 +423,19 @@ class _BusBookingPageState extends State<BusBookingPage> {
 
                     },
                       child: lastSeats.first[index].isSelected ?? false
-                          ? Image.asset('assets/imgs/chair3.png',height: 30, width: 30, scale: 5)
+                          ? Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Image.asset('assets/imgs/chair3.png',height: 25, width: 25, scale: 5),
+                          )
                         :lastSeats.first[index].isBooked ?? false
-                          ? Image.asset('assets/imgs/chair2.png',height: 30, width: 30, scale: 5)
-                          : Image.asset('assets/imgs/chair1.png',height: 30, width: 30, scale: 5)) ;
+                          ? Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Image.asset('assets/imgs/chair2.png',height: 25, width: 25, scale: 5),
+                          )
+                          : Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Image.asset('assets/imgs/chair1.png',height: 25, width: 25, scale: 5),
+                          )) ;
                   }),)
 
       ),
@@ -750,7 +816,6 @@ Widget ertigaView(){
 
 
 Future <void> getBusDetail() async{
-
     setState(() {
       isLoading = true ;
     });
@@ -762,7 +827,6 @@ Future <void> getBusDetail() async{
       'bus_id': widget.id,
       'journey_date': widget.date ?? ''
     });
-
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -775,6 +839,11 @@ Future <void> getBusDetail() async{
       setState(() {
         busDetailData = finalresult.data ;
         seats = finalresult.data?.seatDesign ?? [] ;
+        // seats.forEach((element) {
+        //   element.add(Seat(isBooked: false,id: 123,isSelected: false));
+        //
+        // });
+
 
         isLoading = false ;
       });

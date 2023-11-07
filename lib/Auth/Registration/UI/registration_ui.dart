@@ -146,7 +146,7 @@ class _RegistrationUIState extends State<RegistrationUI> {
                 Container(
                   color: primary,
                   height:MediaQuery.of(context).size.height/3.1,
-                  child: Center(child: Image.asset('assets/loginlogo.png', scale: 3.5,)),
+                  child: Center(child: Image.asset('assets/loginlogo.png', scale: 4.5,)),
                 ),
                 Container(
                   padding: EdgeInsets.all(14),
